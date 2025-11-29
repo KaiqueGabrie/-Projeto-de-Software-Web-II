@@ -1,0 +1,41 @@
+<section class="layout_padding">
+  <div class="container">
+    <h2>🛍️ Seu Carrinho</h2>
+    <table class="table table-bordered mt-4">
+      <thead>
+        <tr>
+          <th>Produto</th>
+          <th>Qtd</th>
+          <th>Preço</th>
+          <th>Total</th>
+        </tr>
+      </thead>
+      <tbody id="cart-body"></tbody>
+    </table>
+
+    <button id="finalizar" class="btn btn-pink">Finalizar Pedido 💬</button>
+  </div>
+</section>
+
+<script>
+  const cart = JSON.parse(localStorage.getItem("cart")) || [];
+  const tbody = document.getElementById("cart-body");
+
+  tbody.innerHTML = cart.map(item => `
+    <tr>
+      <td>${item.name}</td>
+      <td>${item.qty}</td>
+      <td>R$ ${item.price.toFixed(2)}</td>
+      <td>R$ ${(item.qty * item.price).toFixed(2)}</td>
+    </tr>
+  `).join("");
+
+  document.getElementById("finalizar").addEventListener("click", () => {
+    const msg = cart.map(
+      item => `${item.qty}x ${item.name} - R$ ${(item.qty * item.price).toFixed(2)}`
+    ).join("\n");
+
+    const url = `https://wa.me/556992020634?text=Pedido%20Encanto%20Rosa%20Doceria:%0A${encodeURIComponent(msg)}`;
+    window.open(url, "_blank");
+  });
+</script>

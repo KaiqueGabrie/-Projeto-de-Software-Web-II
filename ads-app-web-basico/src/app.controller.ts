@@ -1,20 +1,54 @@
 import { Controller, Get, Render } from '@nestjs/common';
-import { AppService } from './app.service';
 
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) {}
-
   @Get()
   @Render('home')
   home() {
-    return { titulo: this.appService.getTitulo() };
+    return {
+      title: 'Início',
+      bodyClass: '',
+      page: 'home',
+    };
   }
 
+  @Get('menu')
+  @Render('menu')
+  menu() {
+    return {
+      title: 'Cardápio',
+      bodyClass: 'sub_page',
+      page: 'menu',
+    };
+  }
 
   @Get('sobre')
   @Render('sobre')
   sobre() {
-    return {};
+    return {
+      title: 'Sobre nós',
+      bodyClass: 'sub_page',
+      page: 'sobre',
+    };
+  }
+
+  @Get('reservas')
+  @Render('book')
+  reservas() {
+    return {
+      title: 'Reservas',
+      bodyClass: 'sub_page',
+      page: 'reservas',
+    };
+  }
+
+  @Get('carrinho')
+  @Render('cart')
+  carrinho() {
+    return {
+      title: 'Carrinho',
+      bodyClass: 'sub_page',
+      page: 'carrinho',
+    };
   }
 }
